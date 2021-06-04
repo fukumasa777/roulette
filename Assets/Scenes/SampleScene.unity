@@ -529,7 +529,7 @@ MonoBehaviour:
   imagePrefab: {fileID: 3113332080020744531, guid: 8008c5927eec842b19ec81e5c490e87b,
     type: 3}
   Roulette: {fileID: 1258943250}
-  itemPrefab: {fileID: 8063020977156681813, guid: 03c828b1662924c17a9d7c10eeb9e084,
+  itemPrefab: {fileID: 8041941906570510128, guid: 03c828b1662924c17a9d7c10eeb9e084,
     type: 3}
   setPanel: {fileID: 593535167}
   setBG: {fileID: 1849544006}
