@@ -9,12 +9,12 @@ public class GameManager: MonoBehaviour
     [SerializeField] Image imagePrefab = default;
     [SerializeField] Transform Roulette = default;
 
-    [SerializeField] GameObject itemPrefab = default;
+    [SerializeField] Item itemPrefab = default;
     [SerializeField] Transform setPanel = default;
 
     [SerializeField] GameObject setBG = default;
 
-    List<ItemData> itemList = new List<ItemData>();
+    List<Item> itemList = new List<Item>();
     public float rotSpeed = 0;
 
     private void Start()
@@ -47,10 +47,17 @@ public class GameManager: MonoBehaviour
         //Spawn(120*2);
     }
 
+    bool rouletteStart;
+
     private void Update()
     {
         Roulette.transform.Rotate(0, 0, rotSpeed);
         rotSpeed *= 0.99f;
+        if (rotSpeed <= 0.01f && rouletteStart)
+        {
+            rouletteStart = false;
+            Debug.Log("止まる");
+        }
     }
 
     public void SetMenuBtn()
@@ -74,8 +81,9 @@ public class GameManager: MonoBehaviour
 
             Debug.Log(rate);
 
-            Spawn(nextAngle, rate, itemList[i].color);
+            Spawn(nextAngle, rate, itemList[i].GetColor(), itemList[i].GetText());
             nextAngle += 360 * rate;
+            // Debug.Log(itemList[i].GetText());
         }
 
         
@@ -84,39 +92,41 @@ public class GameManager: MonoBehaviour
     public void RotationBtn()
     {
         rotSpeed = 10;
+        rouletteStart = true;
     }
 
     public void ItemPlusBtn()
     {
-        Instantiate(itemPrefab,setPanel,false);
-        
-        itemList.Add(new ItemData(Color.red, "りんご", 1));
-
-
+        Item item = Instantiate(itemPrefab,setPanel,false);
+        Color color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 1);
+        item.Set(color, 1);
+        // itemList.Add(new ItemData(Color.red, "りんご", 1));
+        itemList.Add(item);
     }
 
 
 
 
 
-    void Spawn(float angle, float rate ,Color color)
+    void Spawn(float angle, float rate ,Color color, string text)
     {
         Image image = Instantiate(imagePrefab, Roulette, false);
         image.transform.rotation = Quaternion.Euler(0, 0, angle);
         image.fillAmount = rate;
         image.color = color;
+        image.GetComponentInChildren<Text>().text = text;
     }
 }
 
-public class ItemData
-{
-    public Color color;
-    public string itemName;
-    public int rate;
-    public ItemData(Color color, string itemName, int rate)
-    {
-        this.color = color;
-        this.itemName = itemName;
-        this.rate = rate;
-    }
-}
+//public class ItemData
+//{
+//    public Color color;
+//    public string itemName;
+//    public int rate;
+//    public ItemData(Color color, string itemName, int rate)
+//    {
+//        this.color = color;
+//        this.itemName = itemName;
+//        this.rate = rate;
+//    }
+//}
