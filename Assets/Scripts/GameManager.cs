@@ -7,6 +7,9 @@ public class GameManager: MonoBehaviour
 {
     // 画像の生成
     [SerializeField] Image imagePrefab = default;
+
+
+
     [SerializeField] Transform Roulette = default;
 
     [SerializeField] Item itemPrefab = default;
@@ -16,6 +19,8 @@ public class GameManager: MonoBehaviour
 
     List<Item> itemList = new List<Item>();
     public float rotSpeed = 0;
+
+    [SerializeField] Arrow arrow = default;
 
     private void Start()
     {
@@ -47,16 +52,16 @@ public class GameManager: MonoBehaviour
         //Spawn(120*2);
     }
 
-    bool rouletteStart;
+    public bool rouletteStart;
 
     private void Update()
     {
         Roulette.transform.Rotate(0, 0, rotSpeed);
         rotSpeed *= 0.99f;
-        if (rotSpeed <= 0.01f && rouletteStart)
+        if (rotSpeed >= -0.01f && rouletteStart)
         {
             rouletteStart = false;
-            Debug.Log("止まる");
+            Debug.Log("止まる" + arrow.targetName);
         }
     }
 
@@ -91,7 +96,7 @@ public class GameManager: MonoBehaviour
 
     public void RotationBtn()
     {
-        rotSpeed = 10;
+        rotSpeed = -10;
         rouletteStart = true;
     }
 
@@ -105,17 +110,21 @@ public class GameManager: MonoBehaviour
     }
 
 
-
-
-
     void Spawn(float angle, float rate ,Color color, string text)
     {
         Image image = Instantiate(imagePrefab, Roulette, false);
         image.transform.rotation = Quaternion.Euler(0, 0, angle);
         image.fillAmount = rate;
         image.color = color;
-        image.GetComponentInChildren<Text>().text = text;
+        //image.GetComponentInChildren<Text>().text = text;
     }
+
+    
+
+
+
+
+
 }
 
 //public class ItemData
