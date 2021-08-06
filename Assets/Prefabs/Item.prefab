@@ -310,6 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 5708706192740676925}
   inputField: {fileID: 5708706192055260020}
+  inputFieldPer: {fileID: 5708706191679255407}
   rate: 0
 --- !u!1 &5708706192055260022
 GameObject:

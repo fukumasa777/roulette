@@ -7,6 +7,7 @@ public class Item : MonoBehaviour
 {
     public Image image;
     public InputField inputField;
+    public InputField inputFieldPer;
     public int rate;
 
     public void Set(Color color, int rate)
@@ -23,6 +24,17 @@ public class Item : MonoBehaviour
     public string GetText()
     {
         return inputField.text;
+    }
+    public void OnChangedValue(string value)
+    {
+        if (value == "")
+        {
+            rate = 1;
+        }
+        else
+        {
+            rate = System.Int32.Parse(value);
+        }
     }
 
 }
