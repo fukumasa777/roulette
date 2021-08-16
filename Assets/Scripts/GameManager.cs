@@ -22,9 +22,11 @@ public class GameManager : MonoBehaviour
 
     List<Item> itemList = new List<Item>();
     List<GameObject> itemRouletteObjList = new List<GameObject>();
+    List<GameObject> titleList = new List<GameObject>();
 
     public float rotSpeed = 0;
 
+    public float sumRate = 0;
 
     private void Start()
     {
@@ -59,42 +61,15 @@ public class GameManager : MonoBehaviour
     //結果表示
     public void result()
     {
-        if (itemList.Count == 2)
+        if (180 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 360)
         {
-            if (0 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180)
-            {
-                resultText.text = "結果 ： " + itemList[0].GetText();
-                Debug.Log(itemList[0].GetText());
-            }
-            if (180 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 360)
-            {
-                resultText.text = "結果 ： " + itemList[1].GetText();
-                Debug.Log(itemList[1].GetText());
-            }
-
+            resultText.text = "結果 ： " + itemList[0].GetText();
+            Debug.Log(itemList[0].GetText());
         }
-        if (itemList.Count == 4)
+        if (180 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 360)
         {
-            if (0 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 90)
-            {
-                resultText.text = "結果 ： " + itemList[0].GetText();
-                Debug.Log(itemList[0].GetText());
-            }
-            if (270 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 360)
-            {
-                resultText.text = "結果 ： " + itemList[1].GetText();
-                Debug.Log(itemList[1].GetText());
-            }
-            if (180 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 270)
-            {
-                resultText.text = "結果 ： " + itemList[2].GetText();
-                Debug.Log(itemList[2].GetText());
-            }
-            if (90 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180)
-            {
-                resultText.text = "結果 ： " + itemList[3].GetText();
-                Debug.Log(itemList[0].GetText());
-            }
+            resultText.text = "結果 ： " + itemList[1].GetText();
+            Debug.Log(itemList[1].GetText());
         }
     }
 
@@ -120,22 +95,28 @@ public class GameManager : MonoBehaviour
         {
             Destroy(obj);
         }
+        foreach (GameObject obj in titleList)
+        {
+            Destroy(obj);
+        }
         itemRouletteObjList.Clear();
+        titleList.Clear();
     }
 
     //項目追加しルーレット画面へ
     public void SetBtn()
     {
         setBG.SetActive(false);
-        float sumRate = 0;
+        sumRate = 0;
         for (int i = 0; i < itemList.Count; i++)
         {
             sumRate += itemList[i].rate;
         }
         float nextAngle = 0;
-        float nextTitleAngle = -45;
+        float nextTitleAngle = (360f * itemList[0].rate / sumRate) / 2f;
         for (int i = 0; i < itemList.Count; i++)
         {
+            Debug.Log("角度" + nextTitleAngle);
             float rate = itemList[i].rate / sumRate;
             Debug.Log($"{itemList[i].rate}:{sumRate}");
             Spawn(nextAngle, rate, itemList[i].GetColor(), itemList[i].GetText());
@@ -150,7 +131,7 @@ public class GameManager : MonoBehaviour
             //    Spawn4(nextAngle, rate, itemList[i].GetColor(), itemList[i].GetText());
             //}
             nextAngle += 360 * rate;
-            nextTitleAngle += 360 * rate;
+            nextTitleAngle += 360f * rate;
         }
     }
 
@@ -178,17 +159,6 @@ public class GameManager : MonoBehaviour
 
     //項目生成
 
-    void Spawn(float angle, float rate, Color color, string text)
-    {
-        Image image = Instantiate(circlePrefab, Roulette, false);
-        image.transform.rotation = Quaternion.Euler(0, 0, 360 - angle);
-        image.fillAmount = rate;
-        Debug.Log(angle);
-        image.color = color;
-        itemRouletteObjList.Add(image.gameObject);
-        //image.GetComponentInChildren<Text>().text = text;
-
-    }
 
 
     /*原型
@@ -202,19 +172,29 @@ public class GameManager : MonoBehaviour
     }
     */
 
+    void Spawn(float angle, float rate, Color color, string text)
+    {
+        Image image = Instantiate(circlePrefab, Roulette, false);
+        image.transform.rotation = Quaternion.Euler(0, 0, 360 - angle);
+        image.fillAmount = rate;
+        Debug.Log(angle);
+        image.color = color;
+        itemRouletteObjList.Add(image.gameObject);
+    }
+
     void TitleSpawn(float angle, float rate, string text)
     {
-        Debug.Log(rate);
         if (itemList.Count == 0)
         {
             return;
         }
         Image image = Instantiate(TitlePrefab, Roulette, false);
-        image.transform.rotation = Quaternion.Euler(0, 0, angle);
-        // float angleDeg = Mathf.Deg2Rad * (180 / itemList.Count + angle);
         float angleDeg = Mathf.Deg2Rad * (angle);
-        image.transform.localPosition = new Vector3(GetSign(Mathf.Sin(angleDeg)) * -200, GetSign(Mathf.Cos(angleDeg)) * -200, 0);
+        // Debug.Log($"angleDeg{angleDeg}");
+        int k = -200;
+        image.transform.localPosition = new Vector3(k * Mathf.Sin(angleDeg), k * Mathf.Cos(angleDeg), 0);
         image.GetComponentInChildren<Text>().text = text;
+        titleList.Add(image.gameObject);
     }
 
     void Spawn2(float angle, float rate, Color color, string text)
