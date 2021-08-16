@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -410,8 +410,8 @@ Canvas:
   m_GameObject: {fileID: 221593659}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -621,6 +621,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 5712336038628128332, guid: 0fc1f628eeac3413dacc0bff38223f10,
     type: 3}
   rotSpeed: 0
+  sumRate: 0
   isRouletteStart: 0
 --- !u!4 &307042950
 Transform:
@@ -961,8 +962,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 370, y: -655.83}
-  m_SizeDelta: {x: 740, y: 1060.3385}
+  m_AnchoredPosition: {x: 400, y: -740}
+  m_SizeDelta: {x: 740, y: 1060}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543495022
 MonoBehaviour:
@@ -1777,7 +1778,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1849544007
 RectTransform:
   m_ObjectHideFlags: 0
