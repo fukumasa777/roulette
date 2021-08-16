@@ -106,6 +106,11 @@ public class GameManager : MonoBehaviour
     //項目追加しルーレット画面へ
     public void SetBtn()
     {
+        if(itemList.Count <= 0)
+        {
+            setBG.SetActive(false);
+            return;
+        }
         setBG.SetActive(false);
         sumRate = 0;
         for (int i = 0; i < itemList.Count; i++)
@@ -116,20 +121,9 @@ public class GameManager : MonoBehaviour
         float nextTitleAngle = (360f * itemList[0].rate / sumRate) / 2f;
         for (int i = 0; i < itemList.Count; i++)
         {
-            Debug.Log("角度" + nextTitleAngle);
             float rate = itemList[i].rate / sumRate;
-            Debug.Log($"{itemList[i].rate}:{sumRate}");
             Spawn(nextAngle, rate, itemList[i].GetColor(), itemList[i].GetText());
             TitleSpawn(nextTitleAngle, rate, itemList[i].GetText());
-            // Debug.Log(itemList[i].GetText());
-            //if (itemList.Count == 2)
-            //{
-            //    Spawn2(nextAngle, rate, itemList[i].GetColor(), itemList[i].GetText());
-            //}
-            //if (itemList.Count == 4)
-            //{
-            //    Spawn4(nextAngle, rate, itemList[i].GetColor(), itemList[i].GetText());
-            //}
             nextAngle += 360 * rate;
             nextTitleAngle += 360f * rate;
         }

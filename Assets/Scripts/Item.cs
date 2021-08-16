@@ -10,6 +10,10 @@ public class Item : MonoBehaviour
     public InputField inputFieldPer;
     public int rate;
 
+
+    
+
+
     public void Set(Color color, int rate)
     {
         image.color = color;
@@ -27,14 +31,17 @@ public class Item : MonoBehaviour
     }
     public void OnChangedValue(string value)
     {
+        
         if (value == "")
         {
             rate = 1;
         }
         else
         {
-            rate = System.Int32.Parse(value);
+            rate = int.Parse(value);
         }
     }
+
+
 
 }
