@@ -9,9 +9,10 @@ public class Item : MonoBehaviour
     public InputField inputField;
     public InputField inputFieldPer;
     public int rate;
-
-
     
+
+
+
 
 
     public void Set(Color color, int rate)
@@ -41,6 +42,12 @@ public class Item : MonoBehaviour
             rate = int.Parse(value);
         }
     }
+
+    public void ViewColorPanel(GameObject currentBtn)
+    {
+        GameManager.I.ColorChoiceBtn(currentBtn);
+    }
+
 
 
 

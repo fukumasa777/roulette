@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject setBG = default;
     [SerializeField] GameObject colorPanel = default;
+    [SerializeField] GameObject colorPanelBtn = default;
+
 
     [SerializeField] Transform setPanel = default;
     [SerializeField] Item itemPrefab = default;
@@ -25,19 +27,42 @@ public class GameManager : MonoBehaviour
     List<Item> itemList = new List<Item>();
     List<GameObject> itemRouletteObjList = new List<GameObject>();
     List<GameObject> titleList = new List<GameObject>();
+    
+
 
     List<Color> colorList = new List<Color>();
-
+    
 
     public float rotSpeed = 0;
-
     public float sumRate = 0;
+
+    //itemのボタン格納用変数（item側でクリックされたらこの中にgameobjectが入る）
+    public GameObject currentColorBtn;
+
+    //参照出来るようにstatic変数用意
+    public static GameManager I;
+
+    //カラー用インデックス
+    private int idx = 0;
+
+    private void Awake()
+    {
+        if(I == null)
+        {
+            I = this;
+        }
+        
+    }
 
     private void Start()
     {
         setBG.SetActive(false);
         Debug.Log("スタート");
-        colorList.Add(new Color( 255,205,0,1));
+        //カラーパレットの色をリストに追加
+        foreach(Transform tf in colorPanelBtn.transform)
+        {
+            colorList.Add(new Color(tf.GetComponent<Image>().color.r, tf.GetComponent<Image>().color.g, tf.GetComponent<Image>().color.b));
+        }
 
     }
 
@@ -142,24 +167,36 @@ public class GameManager : MonoBehaviour
     public void ItemPlusBtn()
     {
         Item item = Instantiate(itemPrefab, setPanel, false);
-        Color color = colorList[0];
-        //Color color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 1);
+        Color color = colorList[idx];
         item.Set(color, 1);
         itemList.Add(item);
-        // itemList.Add(new ItemData(Color.red, "りんご", 1));
+        
+        idx++;
+        //カラーを最初から呼び出すための分岐
+        if (idx ==  colorList.Count)
+        {
+            idx = 0;
+        }
     }
 
     public void ItemResetBtn()
     {
-        // List<Item> itemList = new List<Item>();
+        //カラー呼び出し用indexを初期化
+        idx = 0;
         DestroyListObj();
     }
 
+
     //色選択画面へ
-    public void ColorChoiceBtn()
+    //押されたボタンを受け取る currentColorBtn
+    public void ColorChoiceBtn(GameObject btn)
     {
         colorPanel.SetActive(true);
+        //受け取ったgameObjectを格納
+        currentColorBtn = btn;
+        
     }
+
 
     //色選択画面から戻る
     public void ColorReturnBtn()
@@ -167,6 +204,17 @@ public class GameManager : MonoBehaviour
         colorPanel.SetActive(false);
     }
 
+    //カラーパネルのボタンを押した処理
+    public void SelectColorBtn(Color baseBtnColor)
+    {
+        //送られたボタンがnullなら処理終了
+        if (currentColorBtn == null)
+        {
+            return;
+        }
+        currentColorBtn.GetComponent<Image>().color = baseBtnColor;
+
+    }
 
 
 
@@ -202,7 +250,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         Image image = Instantiate(TitlePrefab, Roulette, false);
-        float angleDeg = Mathf.Deg2Rad * (angle);
+        float angleDeg = Mathf.Deg2Rad * (angle);   
         // Debug.Log($"angleDeg{angleDeg}");
         int k = -200;
         image.transform.localPosition = new Vector3(k * Mathf.Sin(angleDeg), k * Mathf.Cos(angleDeg), 0);
