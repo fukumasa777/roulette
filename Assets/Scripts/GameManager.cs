@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     List<GameObject> itemRouletteObjList = new List<GameObject>();
     List<GameObject> titleList = new List<GameObject>();
 
+    List<Color> colorList = new List<Color>();
+
+
     public float rotSpeed = 0;
 
     public float sumRate = 0;
