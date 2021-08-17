@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] GameObject setBG = default;
+    [SerializeField] GameObject colorPanel = default;
+
     [SerializeField] Transform setPanel = default;
     [SerializeField] Item itemPrefab = default;
 
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour
     {
         setBG.SetActive(false);
         Debug.Log("スタート");
+        colorList.Add(new Color( 255,205,0,1));
+
     }
 
     public bool isRouletteStart;
@@ -138,7 +142,8 @@ public class GameManager : MonoBehaviour
     public void ItemPlusBtn()
     {
         Item item = Instantiate(itemPrefab, setPanel, false);
-        Color color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 1);
+        Color color = colorList[0];
+        //Color color = new Color(Random.Range(0, 1f), Random.Range(0, 1f), Random.Range(0, 1f), 1);
         item.Set(color, 1);
         itemList.Add(item);
         // itemList.Add(new ItemData(Color.red, "りんご", 1));
@@ -150,6 +155,17 @@ public class GameManager : MonoBehaviour
         DestroyListObj();
     }
 
+    //色選択画面へ
+    public void ColorChoiceBtn()
+    {
+        colorPanel.SetActive(true);
+    }
+
+    //色選択画面から戻る
+    public void ColorReturnBtn()
+    {
+        colorPanel.SetActive(false);
+    }
 
 
 
