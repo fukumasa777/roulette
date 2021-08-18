@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
         if (rotSpeed >= -0.01f && isRouletteStart)
         {
             isRouletteStart = false;
-            Debug.Log("止まる");
+            Debug.Log("ストップ");
             result();
         }
     }
@@ -87,15 +87,17 @@ public class GameManager : MonoBehaviour
     //回転
     public void RotationBtn()
     {
+        Debug.Log("回転");
         isRouletteStart = true;
-        rotSpeed = -0.4f;
+        rotSpeed = -1f;
     }
 
+    
     //結果表示
     public void result()
     {
-        Debug.Log(itemList.Count);
-        Debug.Log(Roulette.transform.localEulerAngles.z);
+        Debug.Log("総アイテム数"+itemList.Count);
+        Debug.Log("静止時アングル" + Roulette.transform.localEulerAngles.z);
         
 
         if (1 <= itemList.Count)
@@ -103,119 +105,119 @@ public class GameManager : MonoBehaviour
             if (180 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[0])
             {
                 resultText.text = "結果 ： " + itemList[0].GetText();
-                Debug.Log(itemList[0].GetText());
+                Debug.Log("結果 ： " + itemList[0].GetText());
                 Debug.Log(180 + angleResult[0]);
             }
-            if (1 <= itemList.Count)
+            if (2 <= itemList.Count)
             {
-                if (180 + angleResult[0] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[1])
+                if (0 < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[1])
                 {
                     resultText.text = "結果 ： " + itemList[1].GetText();
-                    Debug.Log(itemList[1].GetText());
+                    Debug.Log("結果 ： " + itemList[1].GetText());
                     Debug.Log(180 + angleResult[1]);
                 }
-                if (2 <= itemList.Count)
+                if (3 <= itemList.Count)
                 {
                     if (180 + angleResult[1] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[2])
                     {
                         resultText.text = "結果 ： " + itemList[2].GetText();
-                        Debug.Log(itemList[2].GetText());
+                        Debug.Log("結果 ： " + itemList[2].GetText());
                         Debug.Log(180 + angleResult[2]);
                     }
-                    if (3 <= itemList.Count)
+                    if (4 <= itemList.Count)
                     {
                         if (180 + angleResult[2] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[3])
                         {
                             resultText.text = "結果 ： " + itemList[3].GetText();
-                            Debug.Log(itemList[3].GetText());
+                            Debug.Log("結果 ： " + itemList[3].GetText());
                             Debug.Log(180 + angleResult[3]);
                         }
-                        if (4 <= itemList.Count)
+                        if (5 <= itemList.Count)
                         {
                             if (180 + angleResult[3] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[4])
                             {
                                 resultText.text = "結果 ： " + itemList[4].GetText();
-                                Debug.Log(itemList[4].GetText());
+                                Debug.Log("結果 ： " + itemList[4].GetText());
                                 Debug.Log(180 + angleResult[4]);
                             }
-                            if (5 <= itemList.Count)
+                            if (6 <= itemList.Count)
                             {
                                 if (180 + angleResult[4] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[5])
                                 {
                                     resultText.text = "結果 ： " + itemList[5].GetText();
-                                    Debug.Log(itemList[5].GetText());
+                                    Debug.Log("結果 ： " + itemList[5].GetText());
                                     Debug.Log(180 + angleResult[5]);
                                 }
-                                if (6 <= itemList.Count)
+                                if (7 <= itemList.Count)
                                 {
                                     if (180 + angleResult[5] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[6])
                                     {
                                         resultText.text = "結果 ： " + itemList[6].GetText();
-                                        Debug.Log(itemList[6].GetText());
+                                        Debug.Log("結果 ： " + itemList[6].GetText());
                                         Debug.Log(180 + angleResult[6]);
                                     }
-                                    if (7 <= itemList.Count)
+                                    if (8 <= itemList.Count)
                                     {
                                         if (180 + angleResult[6] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[7])
                                         {
                                             resultText.text = "結果 ： " + itemList[7].GetText();
-                                            Debug.Log(itemList[7].GetText());
+                                            Debug.Log("結果 ： " + itemList[7].GetText());
                                             Debug.Log(180 + angleResult[7]);
                                         }
-                                        if (8 <= itemList.Count)
+                                        if (9 <= itemList.Count)
                                         {
                                             if (180 + angleResult[7] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[8])
                                             {
                                                 resultText.text = "結果 ： " + itemList[8].GetText();
-                                                Debug.Log(itemList[8].GetText());
+                                                Debug.Log("結果 ： " + itemList[8].GetText());
                                                 Debug.Log(180 + angleResult[8]);
                                             }
-                                            if (9 <= itemList.Count)
+                                            if (10 <= itemList.Count)
                                             {
                                                 if (180 + angleResult[8] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[9])
                                                 {
                                                     resultText.text = "結果 ： " + itemList[9].GetText();
-                                                    Debug.Log(itemList[9].GetText());
+                                                    Debug.Log("結果 ： " + itemList[9].GetText());
                                                     Debug.Log(180 + angleResult[9]);
                                                 }
-                                                if (10 <= itemList.Count)
+                                                if (11 <= itemList.Count)
                                                 {
                                                     if (180 + angleResult[9] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[10])
                                                     {
                                                         resultText.text = "結果 ： " + itemList[10].GetText();
-                                                        Debug.Log(itemList[10].GetText());
+                                                        Debug.Log("結果 ： " + itemList[10].GetText());
                                                         Debug.Log(180 + angleResult[10]);
                                                     }
-                                                    if (11 <= itemList.Count)
+                                                    if (12 <= itemList.Count)
                                                     {
                                                         if (180 + angleResult[10] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[11])
                                                         {
                                                             resultText.text = "結果 ： " + itemList[11].GetText();
-                                                            Debug.Log(itemList[11].GetText());
+                                                            Debug.Log("結果 ： " + itemList[11].GetText());
                                                             Debug.Log(180 + angleResult[11]);
                                                         }
-                                                        if (12 <= itemList.Count)
+                                                        if (13 <= itemList.Count)
                                                         {
                                                             if (180 + angleResult[11] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[12])
                                                             {
                                                                 resultText.text = "結果 ： " + itemList[12].GetText();
-                                                                Debug.Log(itemList[12].GetText());
+                                                                Debug.Log("結果 ： " + itemList[12].GetText());
                                                                 Debug.Log(180 + angleResult[12]);
                                                             }
-                                                            if (13 <= itemList.Count)
+                                                            if (14 <= itemList.Count)
                                                             {
                                                                 if (180 + angleResult[12] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[13])
                                                                 {
                                                                     resultText.text = "結果 ： " + itemList[13].GetText();
-                                                                    Debug.Log(itemList[13].GetText());
+                                                                    Debug.Log("結果 ： " + itemList[13].GetText());
                                                                     Debug.Log(180 + angleResult[13]);
                                                                 }
-                                                                if (14 <= itemList.Count)
+                                                                if (15 <= itemList.Count)
                                                                 {
                                                                     if (180 + angleResult[13] < RouletteG.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z <= 180 + angleResult[14])
                                                                     {
                                                                         resultText.text = "結果 ： " + itemList[14].GetText();
-                                                                        Debug.Log(itemList[14].GetText());
+                                                                        Debug.Log("結果 ： " + itemList[14].GetText());
                                                                         Debug.Log(180 + angleResult[14]);
                                                                     }
                                                                 }
