@@ -1190,15 +1190,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5728fff71da4d49678eeff3d68eb1dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RouletteG: {fileID: 1258943249}
   Roulette: {fileID: 1258943250}
   circlePrefab: {fileID: 7268257669968605883, guid: a6eb9e21a546b4b07abb5d486c27ca0a,
     type: 3}
-  imagePrefab2: {fileID: 110875800805545925, guid: 536b6f62bf7b64a57b946fda5fa4f4d1,
-    type: 3}
   TitlePrefab: {fileID: 2842738757662025538, guid: aa4408c483a5d43239216d4971b94ab7,
-    type: 3}
-  imagePrefab4: {fileID: 2292463311740750890, guid: 96a99ec4574ea444fa8bc3c51767a9bd,
     type: 3}
   resultText: {fileID: 203376395}
   setBG: {fileID: 1849544006}
@@ -1681,8 +1676,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 18.399902}
-  m_SizeDelta: {x: 0, y: -269.13428}
+  m_AnchoredPosition: {x: 0, y: 7.3375244}
+  m_SizeDelta: {x: 0, y: -225.32495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &543495022
 MonoBehaviour:
@@ -2992,7 +2987,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 310}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1467520853
 MonoBehaviour:
@@ -3866,7 +3861,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.83137256, g: 0.83137256, b: 0.83137256, a: 1}
+  m_Color: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:

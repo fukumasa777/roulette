@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         {
             I = this;
         }
-        
     }
 
     private void Start()
@@ -53,30 +52,60 @@ public class GameManager : MonoBehaviour
         {
             colorList.Add(new Color(tf.GetComponent<Image>().color.r, tf.GetComponent<Image>().color.g, tf.GetComponent<Image>().color.b));
         }
-
     }
 
-    
+    public float rotationTime = 0f;//減速なしで回り続ける時間
+
+    bool isIkasama;//イカサマモード切り替え
 
     private void Update()
     {
+        
         if (isRouletteStart)
         {
+        
             Roulette.transform.Rotate(0, 0, rotSpeed);//加速
-            rotSpeed *= 0.99f;//減速
+            rotationTime -= Time.deltaTime;
+            if (rotationTime <= 0 && rotSpeed < -1.3 )
+            {
+                rotSpeed *= 0.997f;//減速
+            }
+            if (rotationTime <= 0 && -1.3 < rotSpeed )  //急に止まると不自然な為２段階減速
+            {
+                rotSpeed *= 0.999f;//減速
+            }
+
         }
-        if (rotSpeed >= -0.01f && isRouletteStart)
+        if (isIkasama)
         {
+            IkasamaStop();
+        }
+        if (rotSpeed >= -0.1f && isRouletteStart)
+        {
+            rotSpeed = 0;
             isRouletteStart = false;
             result();
         }
+        
     }
 
     //回転
     public void RotationBtn()
     {
+        isIkasama = true; //テスト
         isRouletteStart = true;
-        rotSpeed = -5f;
+        rotationTime = Random.Range(2.0f, 3.0f); //減速なしで回り続ける時間
+        rotSpeed = -6.5f;   
+    }
+
+    //イカサマ　　　　　ここでイカサマしたいルーレットの角度取得し設定したい
+    public void IkasamaStop()
+    {
+        
+        if(60 <= Roulette.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z < 120 && -0.6f < rotSpeed)
+        {
+            rotSpeed *= 0.9f;
+        }
     }
 
     
@@ -242,8 +271,4 @@ public class GameManager : MonoBehaviour
         image.GetComponentInChildren<Text>().text = text;
         titleList.Add(image.gameObject);
     }
-
- 
-
- 
 }
