@@ -14,7 +14,6 @@ public class Item : MonoBehaviour
 
 
 
-
     public void Set(Color color, int rate)
     {
         image.color = color;
