@@ -32,8 +32,14 @@ public class GameManager : MonoBehaviour
     public float sumRate = 0;
     public GameObject currentColorBtn; //itemのボタン格納用変数（item側でクリックされたらこの中にgameobjectが入る）
     public bool isRouletteStart;
+    public float rotationTime = 0f;//減速なしで回り続ける時間
+
     //カラー用インデックス
     private int idx = 0;
+    private float[] ikasamas = { 0, 0 };
+    private float between;
+    bool isIkasama;//イカサマモード切り替え
+
 
     private void Awake()
     {
@@ -54,9 +60,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public float rotationTime = 0f;//減速なしで回り続ける時間
+    
 
-    bool isIkasama;//イカサマモード切り替え
+    
 
     private void Update()
     {
@@ -83,26 +89,46 @@ public class GameManager : MonoBehaviour
         if (rotSpeed >= -0.1f && isRouletteStart)
         {
             rotSpeed = 0;
-            isRouletteStart = false;
             result();
         }
         
     }
 
     //回転
-    public void RotationBtn()
+    public void RotationBtn(bool ikasama)
     {
-        isIkasama = true; //テスト
-        isRouletteStart = true;
-        rotationTime = Random.Range(2.0f, 3.0f); //減速なしで回り続ける時間
-        rotSpeed = -6.5f;   
+        if (!isRouletteStart && itemList.Count > 0)
+        {
+            isRouletteStart = true;
+            rotationTime = Random.Range(2.0f, 3.0f); //減速なしで回り続ける時間
+            rotSpeed = -6.5f;
+        }
+        isIkasama = ikasama;
+
+    }
+
+    public void SetIkasama(string ikasamaText)
+    {
+        /*クリックされたテキストとitemのテキストを比較する処理*/
+        foreach(var (item,idx) in itemList.Select((item, idx) => (item, idx)))
+        {
+            if(item.GetText() == ikasamaText)
+            {
+                
+                ikasamas[0] = circles[idx].startAngle;
+                ikasamas[1] = circles[idx].endAngle;
+                break;
+            }
+        }
+        
+        between = Random.Range((ikasamas[1] + ikasamas[0]) / 2f, ikasamas[1]);
+        Debug.Log($"イカサマ！{ikasamas[0]}から{ikasamas[1]}の間：結果は{ikasamaText}");
     }
 
     //イカサマ　　　　　ここでイカサマしたいルーレットの角度取得し設定したい
     public void IkasamaStop()
     {
-        
-        if(60 <= Roulette.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z < 120 && -0.6f < rotSpeed)
+        if(ikasamas[0] <= Roulette.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z < between && -0.6f < rotSpeed)
         {
             rotSpeed *= 0.9f;
         }
@@ -111,19 +137,14 @@ public class GameManager : MonoBehaviour
     
     //結果表示
     public void result()
-    {
-        /*Debug.Log("総アイテム数"+itemList.Count);
-        Debug.Log($"サークル数:{circles.Count}");
-        Debug.Log("静止時アングル" + Roulette.transform.localEulerAngles.z);*/
-        
+    { 
         float resutAngle = Roulette.transform.localEulerAngles.z;
-        
         foreach(var (item, idx) in itemList.Select((item, idx)=> (item, idx)))
         {
             if(circles[idx].startAngle <= resutAngle && circles[idx].endAngle >= resutAngle)
             {
                 resultText.text = $"結果 ： {item.GetText()}";
-                Debug.Log($"結果：{item.GetText()} / index:{idx}");
+                isRouletteStart = false;
             }
         }
     }
@@ -131,6 +152,10 @@ public class GameManager : MonoBehaviour
     //項目追加画面表示
     public void SetMenuBtn()
     {
+        if (isRouletteStart)
+        {
+            return;
+        }
         DestroyListRouletteObj();
         setBG.SetActive(true);
     }
@@ -250,9 +275,12 @@ public class GameManager : MonoBehaviour
         Image image = Instantiate(circlePrefab, Roulette, false);
         image.transform.rotation = Quaternion.Euler(0, 0, 360 - startAngle);
         image.fillAmount = rate;
+        
+        
         circles.Add(image.GetComponent<Circle>());
         circles.Last().startAngle = startAngle;
         circles.Last().endAngle = endAngle;
+
         image.color = color;
         itemRouletteObjList.Add(image.gameObject);
     }
