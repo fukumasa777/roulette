@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
             rotationTime -= Time.deltaTime;
             if (rotationTime <= 0 && rotSpeed < -1.3 )
             {
-                rotSpeed *= 0.997f;//減速
+                rotSpeed *= 0.995f;//減速
             }
             if (rotationTime <= 0 && -1.3 < rotSpeed )  //急に止まると不自然な為２段階減速
             {
@@ -186,7 +186,9 @@ public class GameManager : MonoBehaviour
     //項目追加しルーレット画面へ
     public void SetBtn()
     {
-        if(itemList.Count <= 0)
+        Roulette.transform.localEulerAngles = new Vector3(0, 0, 0);
+
+        if (itemList.Count <= 0)
         {
             setBG.SetActive(false);
             return;
