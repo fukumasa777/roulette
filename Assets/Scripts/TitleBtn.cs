@@ -13,7 +13,7 @@ public class TitleBtn : MonoBehaviour
         var button = GetComponent<ButtonExtention>();
         button.onClick.AddListener(() => Debug.Log("Click!!"));
         button.onLongPress.AddListener(() => Debug.Log("LongPress!!"));
-        //button.onLongPress.AddListener(() => onClickMe();
+        button.onLongPress.AddListener(() => onClickMe());
 
     }
 
