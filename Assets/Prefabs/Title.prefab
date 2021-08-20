@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2842738757662025541}
   - component: {fileID: 2842738757662025539}
   - component: {fileID: 2842738757662025538}
-  - component: {fileID: 5106880819852840070}
   - component: {fileID: 3923382701889843711}
+  - component: {fileID: -2792397318332515059}
   m_Layer: 5
   m_Name: Title
   m_TagString: Untagged
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5106880819852840070
+--- !u!114 &3923382701889843711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,7 +86,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 2842738757662025540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ac31c1eb12c760478be576e5dbfa93a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2792397318332515059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2842738757662025540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d81ebbd19117e4adcacfc5d28875163c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -119,30 +131,11 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2842738757662025538}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3923382701889843711}
-        m_MethodName: onClickMe
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3923382701889843711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2842738757662025540}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ac31c1eb12c760478be576e5dbfa93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+      m_Calls: []
+  onLongPress:
+    m_PersistentCalls:
+      m_Calls: []
+  longPressIntervalSeconds: 1
 --- !u!1 &2842738758563857600
 GameObject:
   m_ObjectHideFlags: 0

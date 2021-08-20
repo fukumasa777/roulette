@@ -1207,6 +1207,7 @@ MonoBehaviour:
   currentColorBtn: {fileID: 0}
   isRouletteStart: 0
   rotationTime: 0
+  isIkasama: 0
 --- !u!4 &307042950
 Transform:
   m_ObjectHideFlags: 0
@@ -3815,7 +3816,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 307042949}
         m_MethodName: RotationBtn
-        m_Mode: 6
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

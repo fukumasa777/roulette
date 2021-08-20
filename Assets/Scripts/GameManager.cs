@@ -33,12 +33,13 @@ public class GameManager : MonoBehaviour
     public GameObject currentColorBtn; //itemのボタン格納用変数（item側でクリックされたらこの中にgameobjectが入る）
     public bool isRouletteStart;
     public float rotationTime = 0f;//減速なしで回り続ける時間
+    public bool isIkasama;//イカサマモード切り替え
 
     //カラー用インデックス
     private int idx = 0;
     private float[] ikasamas = { 0, 0 };
     private float between;
-    bool isIkasama;//イカサマモード切り替え
+    
 
 
     private void Awake()
@@ -72,11 +73,11 @@ public class GameManager : MonoBehaviour
         
             Roulette.transform.Rotate(0, 0, rotSpeed);//加速
             rotationTime -= Time.deltaTime;
-            if (rotationTime <= 0 && rotSpeed < -1.3 )
+            if (rotationTime <= 0 && rotSpeed < -0.9 )
             {
-                rotSpeed *= 0.995f;//減速
+                rotSpeed *= 0.994f;//減速
             }
-            if (rotationTime <= 0 && -1.3 < rotSpeed )  //急に止まると不自然な為２段階減速
+            if (rotationTime <= 0 && -0.9 < rotSpeed )  //急に止まると不自然な為２段階減速
             {
                 rotSpeed *= 0.999f;//減速
             }
@@ -95,15 +96,15 @@ public class GameManager : MonoBehaviour
     }
 
     //回転
-    public void RotationBtn(bool ikasama)
+    public void RotationBtn()
     {
         if (!isRouletteStart && itemList.Count > 0)
         {
             isRouletteStart = true;
-            rotationTime = Random.Range(2.0f, 3.0f); //減速なしで回り続ける時間
+            rotationTime = Random.Range(3.0f, 6.0f); //減速なしで回り続ける時間
             rotSpeed = -6.5f;
         }
-        isIkasama = ikasama;
+        
 
     }
 
@@ -145,6 +146,7 @@ public class GameManager : MonoBehaviour
             {
                 resultText.text = $"結果 ： {item.GetText()}";
                 isRouletteStart = false;
+                isIkasama = false;
             }
         }
     }
