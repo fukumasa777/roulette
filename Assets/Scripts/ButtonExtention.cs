@@ -4,6 +4,8 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 
+
+//長押し実装のためのクラス
 public class ButtonExtention : Button
 {
     public UnityEvent onLongPress = new UnityEvent();

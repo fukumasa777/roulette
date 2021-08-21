@@ -11,17 +11,26 @@ public class TitleBtn : MonoBehaviour
         Text t = transform.GetChild(0).gameObject.GetComponent<Text>();
         myText = t.text;
         var button = GetComponent<ButtonExtention>();
-        button.onClick.AddListener(() => Debug.Log("Click!!"));
-        button.onLongPress.AddListener(() => Debug.Log("LongPress!!"));
+        //button.onClick.AddListener(() => Debug.Log("Click!!"));
+        //button.onLongPress.AddListener(() => Debug.Log("LongPress!!"));
         button.onLongPress.AddListener(() => onClickMe());
 
     }
 
     public void onClickMe()
     {
+        if(GameManager.I.stamina > 0)
+        {
+            Debug.Log("イカサマ準備OK");
+            GameManager.I.SetIkasama(myText);
+            GameManager.I.isIkasama = true;
+        }
+        else
+        {
+            Debug.Log("スタミナが足りません");
+            return;
+        }
         
-        GameManager.I.SetIkasama(myText);
-        GameManager.I.isIkasama = true;
     }
 
     

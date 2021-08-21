@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject colorPanelBtn = default;
     [SerializeField] Transform setPanel = default;
     [SerializeField] Item itemPrefab = default;
+    [SerializeField] GameObject staminaIconPrefab = default;
+    [SerializeField] Transform staminaIconPanel = default;
 
     /*List達*/
     List<Item> itemList = new List<Item>();
@@ -34,6 +36,7 @@ public class GameManager : MonoBehaviour
     public bool isRouletteStart;
     public float rotationTime = 0f;//減速なしで回り続ける時間
     public bool isIkasama;//イカサマモード切り替え
+    public int stamina;
 
     //カラー用インデックス
     private int idx = 0;
@@ -53,17 +56,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         setBG.SetActive(false);
-        
+        stamina = PlayerPrefs.GetInt("STAMINA", 0); //セーブの為
+
         //カラーパレットの色をリストに追加
-        foreach(Transform tf in colorPanelBtn.transform)
+        foreach (Transform tf in colorPanelBtn.transform)
         {
             colorList.Add(new Color(tf.GetComponent<Image>().color.r, tf.GetComponent<Image>().color.g, tf.GetComponent<Image>().color.b));
         }
+        for(int i = 0; i < stamina; i++)
+        {
+            GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
+        }
     }
-
-    
-
-    
 
     private void Update()
     {
@@ -104,8 +108,6 @@ public class GameManager : MonoBehaviour
             rotationTime = Random.Range(3.0f, 6.0f); //減速なしで回り続ける時間
             rotSpeed = -6.5f;
         }
-        
-
     }
 
     public void SetIkasama(string ikasamaText)
@@ -126,7 +128,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"イカサマ！{ikasamas[0]}から{ikasamas[1]}の間：結果は{ikasamaText}");
     }
 
-    //イカサマ　　　　　ここでイカサマしたいルーレットの角度取得し設定したい
+    //イカサマ
     public void IkasamaStop()
     {
         if(ikasamas[0] <= Roulette.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z < between && -0.6f < rotSpeed)
@@ -146,7 +148,13 @@ public class GameManager : MonoBehaviour
             {
                 resultText.text = $"結果 ： {item.GetText()}";
                 isRouletteStart = false;
-                isIkasama = false;
+                if (isIkasama)
+                {
+                    isIkasama = false;
+                    stamina -= 1;
+                    Destroy(staminaIconPanel.transform.GetChild(0).gameObject);
+                }
+                
             }
         }
     }
@@ -185,7 +193,7 @@ public class GameManager : MonoBehaviour
         titleList.Clear();
     }
 
-    //項目追加しルーレット画面へ
+    //ルーレット生成しルーレット画面へ
     public void SetBtn()
     {
         Roulette.transform.localEulerAngles = new Vector3(0, 0, 0);
@@ -302,5 +310,28 @@ public class GameManager : MonoBehaviour
         image.transform.localPosition = new Vector3(k * Mathf.Sin(angleDeg), k * Mathf.Cos(angleDeg), 0);
         image.GetComponentInChildren<Text>().text = text;
         titleList.Add(image.gameObject);
+    }
+
+    //スタミナプラス処理
+    public void StaminaUpBtn()
+    {
+        if(stamina < 5)
+        {
+            stamina += 1;
+            GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
+            Debug.Log(stamina);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    //セーブ
+    void OnDestroy()
+    {
+        // スコアを保存
+        PlayerPrefs.SetInt("STAMINA", stamina);
+        PlayerPrefs.Save();
     }
 }
