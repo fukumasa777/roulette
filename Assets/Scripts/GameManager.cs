@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Item itemPrefab = default;
     [SerializeField] GameObject staminaIconPrefab = default;
     [SerializeField] Transform staminaIconPanel = default;
+    [SerializeField] GameObject SettingBG = default;
 
     /*List達*/
     List<Item> itemList = new List<Item>();
@@ -55,6 +56,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        SettingBG.SetActive(false);
+        colorPanel.SetActive(false);
         setBG.SetActive(false);
         stamina = PlayerPrefs.GetInt("STAMINA", 0); //セーブの為
 
@@ -278,6 +281,7 @@ public class GameManager : MonoBehaviour
             return;
         }
         currentColorBtn.GetComponent<Image>().color = baseBtnColor;
+        colorPanel.SetActive(false);
 
     }
 
@@ -334,4 +338,11 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("STAMINA", stamina);
         PlayerPrefs.Save();
     }
+
+    //セッティング周り
+    public void SettingBtn()
+    {
+        SettingBG.SetActive(true);
+    }
+
 }

@@ -18,5 +18,6 @@ public class SelectColorBtn : MonoBehaviour
     private void Selected()
     {
         GameManager.I.SelectColorBtn(myColor);
+        
     }
 }
