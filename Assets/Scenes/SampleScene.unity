@@ -446,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &71386488
 RectTransform:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0010375977}
+  m_AnchoredPosition: {x: 0, y: -0.0009765625}
   m_SizeDelta: {x: 0, y: 0.0021972656}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &71386489
@@ -1439,6 +1439,7 @@ MonoBehaviour:
   staminaIconPrefab: {fileID: 2329682578120146396, guid: 6a3640be0b3de47b985b8fd3e77b9e06,
     type: 3}
   staminaIconPanel: {fileID: 598899908}
+  SettingBG: {fileID: 0}
   rotSpeed: 0
   sumRate: 0
   currentColorBtn: {fileID: 0}
@@ -3277,7 +3278,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.000091552734, y: 357}
+  m_AnchoredPosition: {x: 0, y: 357}
   m_SizeDelta: {x: -0.00012207031, y: 94.364944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1156845098
@@ -5067,7 +5068,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.000091552734, y: 452}
+  m_AnchoredPosition: {x: 0, y: 452}
   m_SizeDelta: {x: -0.00012207031, y: 94.364944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1790733753
