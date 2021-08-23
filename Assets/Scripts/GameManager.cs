@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject staminaIconPrefab = default;
     [SerializeField] Transform staminaIconPanel = default;
     [SerializeField] GameObject SettingBG = default;
+    [SerializeField] GameObject SoundOffFlog = default;
+    [SerializeField] GameObject SoundOnFlog = default;
+    
 
     /*List達*/
     List<Item> itemList = new List<Item>();
@@ -43,8 +46,8 @@ public class GameManager : MonoBehaviour
     private int idx = 0;
     private float[] ikasamas = { 0, 0 };
     private float between;
-    
 
+    int isSound;
 
     private void Awake()
     {
@@ -56,10 +59,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        if (isSound == 1)
+        {
+            SoundOffFlog.SetActive(false);
+            SoundOnFlog.SetActive(true);
+        }
+        else
+        {
+            SoundOffFlog.SetActive(true);
+            SoundOnFlog.SetActive(false);
+        }
+
         SettingBG.SetActive(false);
         colorPanel.SetActive(false);
         setBG.SetActive(false);
         stamina = PlayerPrefs.GetInt("STAMINA", 0); //セーブの為
+        isSound = PlayerPrefs.GetInt("SOUND", 1); //セーブの為
 
         //カラーパレットの色をリストに追加
         foreach (Transform tf in colorPanelBtn.transform)
@@ -336,6 +351,7 @@ public class GameManager : MonoBehaviour
     {
         // スコアを保存
         PlayerPrefs.SetInt("STAMINA", stamina);
+        PlayerPrefs.SetInt("SOUND", isSound);
         PlayerPrefs.Save();
     }
 
@@ -343,6 +359,22 @@ public class GameManager : MonoBehaviour
     public void SettingBtn()
     {
         SettingBG.SetActive(true);
+    }
+    public void SettingReturnBtn()
+    {
+        SettingBG.SetActive(false);
+    }
+    public void SoundOnBtn()
+    {
+        isSound = 1;
+        SoundOffFlog.SetActive(false);
+        SoundOnFlog.SetActive(true);
+    }
+    public void SoundOffBtn()
+    {
+        isSound = 0;
+        SoundOffFlog.SetActive(true);
+        SoundOnFlog.SetActive(false);
     }
 
 }
