@@ -42,6 +42,16 @@ public class GameManager : MonoBehaviour
     public bool isIkasama;//イカサマモード切り替え
     public int stamina;
 
+    //挙動修正の為
+    public float gennsoku1 = 0.996f;
+    public float gennsoku2 = 0.999f;
+    public float gensokuSpeed = -0.6f;
+    public float stopSpeed = -0.2f;
+    public float ikasmaStopSpeed = -0.4f;
+
+
+
+
     //カラー用インデックス
     private int idx = 0;
     private float[] ikasamas = { 0, 0 };
@@ -81,6 +91,7 @@ public class GameManager : MonoBehaviour
         {
             colorList.Add(new Color(tf.GetComponent<Image>().color.r, tf.GetComponent<Image>().color.g, tf.GetComponent<Image>().color.b));
         }
+        //スタミナ表示
         for(int i = 0; i < stamina; i++)
         {
             GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
@@ -95,24 +106,37 @@ public class GameManager : MonoBehaviour
         
             Roulette.transform.Rotate(0, 0, rotSpeed);//加速
             rotationTime -= Time.deltaTime;
-            if (rotationTime <= 0 && rotSpeed < -0.9 )
+            if(isSound == 1)
             {
-                rotSpeed *= 0.994f;//減速
+                //AudioManager.I.RouletteSound();
             }
-            if (rotationTime <= 0 && -0.9 < rotSpeed )  //急に止まると不自然な為２段階減速
+
+            if (rotationTime <= 0 && rotSpeed < gensokuSpeed)
             {
-                rotSpeed *= 0.999f;//減速
+                rotSpeed *= gennsoku1;//減速
+            }
+            if (rotationTime <= 0 && gensokuSpeed < rotSpeed )  //急に止まると不自然な為２段階減速
+            {
+                rotSpeed *= gennsoku2;//減速
             }
 
         }
         if (isIkasama)
         {
             IkasamaStop();
+            if (isSound == 1)
+            {
+                //AudioManager.I.ResultSound();
+            }
         }
-        if (rotSpeed >= -0.1f && isRouletteStart)
+        if (rotSpeed >= stopSpeed && isRouletteStart)
         {
             rotSpeed = 0;
             result();
+            if (isSound == 1)
+            {
+                //AudioManager.I.ResultSound();
+            }
         }
         
     }
@@ -149,7 +173,7 @@ public class GameManager : MonoBehaviour
     //イカサマ
     public void IkasamaStop()
     {
-        if(ikasamas[0] <= Roulette.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z < between && -0.6f < rotSpeed)
+        if(ikasamas[0] <= Roulette.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z < between && ikasmaStopSpeed < rotSpeed)
         {
             rotSpeed *= 0.9f;
         }
