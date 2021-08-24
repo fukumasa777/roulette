@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
     private int idx = 0;
     private float[] ikasamas = { 0, 0 };
     private float between;
-
+    private bool isBGM = false;
     int isSound;
 
     private void Awake()
@@ -106,9 +106,10 @@ public class GameManager : MonoBehaviour
         
             Roulette.transform.Rotate(0, 0, rotSpeed);//加速
             rotationTime -= Time.deltaTime;
-            if(isSound == 1)
+            if(isSound == 1 && !isBGM )
             {
-                //AudioManager.I.RouletteSound();
+                isBGM = true;
+                AudioManager.I.RouletteSound();
             }
 
             if (rotationTime <= 0 && rotSpeed < gensokuSpeed)
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
             IkasamaStop();
             if (isSound == 1)
             {
-                //AudioManager.I.ResultSound();
+                AudioManager.I.ResultSound();
             }
         }
         if (rotSpeed >= stopSpeed && isRouletteStart)
@@ -135,7 +136,7 @@ public class GameManager : MonoBehaviour
             result();
             if (isSound == 1)
             {
-                //AudioManager.I.ResultSound();
+                AudioManager.I.ResultSound();
             }
         }
         
