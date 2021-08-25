@@ -163,19 +163,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetIkasama(string ikasamaText)
+    public void SetIkasama(string ikasamaText,int ikasamaIdx)
     {
-        /*クリックされたテキストとitemのテキストを比較する処理*/
-        foreach(var (item,idx) in itemList.Select((item, idx) => (item, idx)))
-        {
-            if(item.GetText() == ikasamaText)
-            {
-                ikasamas[0] = circles[idx].startAngle;
-                ikasamas[1] = circles[idx].endAngle;
-                break;
-            }
-        }
-        
+        ikasamas[0] = circles[ikasamaIdx].startAngle;
+        ikasamas[1] = circles[ikasamaIdx].endAngle;
+
+
         between = Random.Range((ikasamas[1] + ikasamas[0]) / 2f, ikasamas[1]);
         Debug.Log($"イカサマ！{ikasamas[0]}から{ikasamas[1]}の間：結果は{ikasamaText}");
     }
@@ -274,7 +267,7 @@ public class GameManager : MonoBehaviour
             endAngle += 360 * rate;
 
             Spawn(startAngle,endAngle, rate, itemList[i].GetColor(), itemList[i].GetText());
-            TitleSpawn(itemList[i].GetText());
+            TitleSpawn(itemList[i].GetText(),i);
             //次のスタートアングルのためにendAngleをstartAngleに代入
             startAngle = endAngle;
         }
@@ -354,7 +347,7 @@ public class GameManager : MonoBehaviour
     }
 
     //各円の見出し生成
-    void TitleSpawn( string text)
+    void TitleSpawn( string text,int idx)
     {
         if (itemList.Count == 0)
         {
@@ -364,6 +357,7 @@ public class GameManager : MonoBehaviour
         float angleDeg = Mathf.Deg2Rad * ((circles.Last().startAngle + circles.Last().endAngle) / 2);
         int k = 200;//円中心からの何か
         image.transform.localPosition = new Vector3(k * Mathf.Sin(angleDeg), k * Mathf.Cos(angleDeg), 0);
+        image.GetComponent<TitleBtn>().idx = idx;
         image.GetComponentInChildren<Text>().text = text;
         titleList.Add(image.gameObject);
     }

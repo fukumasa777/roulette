@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TitleBtn : MonoBehaviour
 {
     string myText;
+    public int idx;
     private void Start()
     {
         Text t = transform.GetChild(0).gameObject.GetComponent<Text>();
@@ -22,7 +23,7 @@ public class TitleBtn : MonoBehaviour
         if(GameManager.I.stamina > 0)
         {
             Debug.Log("イカサマ準備OK");
-            GameManager.I.SetIkasama(myText);
+            GameManager.I.SetIkasama(myText,idx);
             GameManager.I.isIkasama = true;
         }
         else
