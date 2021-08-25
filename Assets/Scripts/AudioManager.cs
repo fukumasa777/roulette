@@ -7,7 +7,7 @@ public class AudioManager : MonoBehaviour
 {
     
     public AudioClip sound1;
-    public AudioClip sound2;
+    public AudioClip sound3;
     public static AudioManager I { get; private set; }
     AudioSource audioSource ;
     
@@ -38,19 +38,19 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator DrumLoop()//ループ用
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.762f);
         audioSource.Play();
     }
     
 
     public void ResultSound()
     {
-        /*
+        
         //ループを止める処理
         audioSource.Stop();//volumeがゼロになる可能性がある
         audioSource.volume = 1;
-        */
-        audioSource.PlayOneShot(sound2);
+        
+        audioSource.PlayOneShot(sound3);
     }
     
 }

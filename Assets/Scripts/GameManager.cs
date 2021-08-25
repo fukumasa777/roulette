@@ -45,8 +45,8 @@ public class GameManager : MonoBehaviour
     //挙動修正の為
     public float gennsoku1 = 0.996f;
     public float gennsoku2 = 0.999f;
-    public float gensokuSpeed = -0.6f;
-    public float stopSpeed = -0.2f;
+    public float gensokuSpeed = -0.5f;
+    public float stopSpeed = -0.25f;
     public float ikasmaStopSpeed = -0.4f;
 
 
@@ -91,10 +91,21 @@ public class GameManager : MonoBehaviour
         {
             colorList.Add(new Color(tf.GetComponent<Image>().color.r, tf.GetComponent<Image>().color.g, tf.GetComponent<Image>().color.b));
         }
-        //スタミナ表示
+        //スタミナ表示(セーブした部分の再現)
         for(int i = 0; i < stamina; i++)
         {
             GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
+        }
+        //サウンドフラグセーブ再現
+        if(isSound == 0)
+        {
+            SoundOffFlog.SetActive(true);
+            SoundOnFlog.SetActive(false);
+        }
+        else
+        {
+            SoundOffFlog.SetActive(false);
+            SoundOnFlog.SetActive(true);
         }
     }
 
@@ -122,7 +133,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        if (isIkasama)
+        if (isIkasama && isRouletteStart)
         {
             IkasamaStop();
             if (isSound == 1)
@@ -130,9 +141,8 @@ public class GameManager : MonoBehaviour
                 AudioManager.I.ResultSound();
             }
         }
-        if (rotSpeed >= stopSpeed && isRouletteStart)
+        if (rotSpeed >= stopSpeed && isRouletteStart && !isIkasama) 
         {
-            rotSpeed = 0;
             result();
             if (isSound == 1)
             {
@@ -149,7 +159,7 @@ public class GameManager : MonoBehaviour
         {
             isRouletteStart = true;
             rotationTime = Random.Range(3.0f, 6.0f); //減速なしで回り続ける時間
-            rotSpeed = -6.5f;
+            rotSpeed = -6f;
         }
     }
 
@@ -160,7 +170,6 @@ public class GameManager : MonoBehaviour
         {
             if(item.GetText() == ikasamaText)
             {
-                
                 ikasamas[0] = circles[idx].startAngle;
                 ikasamas[1] = circles[idx].endAngle;
                 break;
@@ -176,21 +185,24 @@ public class GameManager : MonoBehaviour
     {
         if(ikasamas[0] <= Roulette.transform.localEulerAngles.z && Roulette.transform.localEulerAngles.z < between && ikasmaStopSpeed < rotSpeed)
         {
-            rotSpeed *= 0.9f;
+            result();
         }
     }
 
     
     //結果表示
     public void result()
-    { 
+    {
+        rotSpeed = 0;
+        isBGM = false;
+        isRouletteStart = false;
         float resutAngle = Roulette.transform.localEulerAngles.z;
         foreach(var (item, idx) in itemList.Select((item, idx)=> (item, idx)))
         {
             if(circles[idx].startAngle <= resutAngle && circles[idx].endAngle >= resutAngle)
             {
                 resultText.text = $"結果 ： {item.GetText()}";
-                isRouletteStart = false;
+                
                 if (isIkasama)
                 {
                     isIkasama = false;
@@ -359,7 +371,11 @@ public class GameManager : MonoBehaviour
     //スタミナプラス処理
     public void StaminaUpBtn()
     {
-        if(stamina < 5)
+        if (isRouletteStart)
+        {
+            return;
+        }
+        if (stamina < 5)
         {
             stamina += 1;
             GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
@@ -383,6 +399,10 @@ public class GameManager : MonoBehaviour
     //セッティング周り
     public void SettingBtn()
     {
+        if (isRouletteStart)
+        {
+            return;
+        }
         SettingBG.SetActive(true);
     }
     public void SettingReturnBtn()

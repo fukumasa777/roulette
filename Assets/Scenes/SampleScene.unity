@@ -1449,10 +1449,10 @@ MonoBehaviour:
   rotationTime: 0
   isIkasama: 0
   stamina: 0
-  gennsoku1: 0.994
+  gennsoku1: 0.996
   gennsoku2: 0.999
-  gensokuSpeed: -0.9
-  stopSpeed: -0.1
+  gensokuSpeed: -0.5
+  stopSpeed: -0.25
   ikasmaStopSpeed: -0.4
 --- !u!4 &307042950
 Transform:
@@ -4088,7 +4088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound1: {fileID: 8300000, guid: ea303d4e6ed3c41b1a1324bbd2a53b30, type: 3}
-  sound2: {fileID: 8300000, guid: 7a8dd749da7c94d27bb18f79dbce8da3, type: 3}
+  sound3: {fileID: 8300000, guid: 7a8dd749da7c94d27bb18f79dbce8da3, type: 3}
 --- !u!82 &1324604231
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4099,8 +4099,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 33ff19959ac0c498b81893d02b3c5fb7, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
