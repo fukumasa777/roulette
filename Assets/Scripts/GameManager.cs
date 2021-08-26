@@ -294,6 +294,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ItemDelBtn(Item item)
+    {
+        Debug.Log($"before:{itemList.Count}");
+        itemList.Remove(item);
+        Debug.Log($"after:{itemList.Count}");
+    }
+
     //ルーレット項目リセット処理
     public void ItemResetBtn()
     {
@@ -376,7 +383,6 @@ public class GameManager : MonoBehaviour
         {
             stamina += 1;
             GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
-            Debug.Log(stamina);
         }
         else
         {
