@@ -9,6 +9,7 @@ public class Item : MonoBehaviour
     public InputField inputField;
     public InputField inputFieldPer;
     public int rate;
+    public GameObject item;
     
 
 
@@ -47,7 +48,10 @@ public class Item : MonoBehaviour
         GameManager.I.ColorChoiceBtn(currentBtn);
     }
 
-
+    public void DeletBtn()
+    {
+        Destroy(item);
+    }
 
 
 }

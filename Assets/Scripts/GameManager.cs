@@ -56,8 +56,8 @@ public class GameManager : MonoBehaviour
     private int idx = 0;
     private float[] ikasamas = { 0, 0 };
     private float between;
-    private bool isBGM = false;
-    int isSound;
+    public bool isBGM = false;
+    public int isSound;
 
     private void Awake()
     {
@@ -135,6 +135,11 @@ public class GameManager : MonoBehaviour
         }
         if (isIkasama && isRouletteStart)
         {
+            if (isSound == 1 && !isBGM)
+            {
+                isBGM = true;
+                AudioManager.I.RouletteSound();
+            }
             IkasamaStop();
             if (isSound == 1)
             {
