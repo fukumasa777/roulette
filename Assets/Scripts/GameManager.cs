@@ -141,18 +141,12 @@ public class GameManager : MonoBehaviour
                 AudioManager.I.RouletteSound();
             }
             IkasamaStop();
-            if (isSound == 1)
-            {
-                AudioManager.I.ResultSound();
-            }
+
         }
         if (rotSpeed >= stopSpeed && isRouletteStart && !isIkasama) 
         {
             result();
-            if (isSound == 1)
-            {
-                AudioManager.I.ResultSound();
-            }
+
         }
         
     }
@@ -191,6 +185,10 @@ public class GameManager : MonoBehaviour
     //結果表示
     public void result()
     {
+        if (isSound == 1)
+        {
+            AudioManager.I.ResultSound();
+        }
         rotSpeed = 0;
         isBGM = false;
         isRouletteStart = false;
