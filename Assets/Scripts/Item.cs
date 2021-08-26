@@ -50,6 +50,7 @@ public class Item : MonoBehaviour
 
     public void DeletBtn()
     {
+        GameManager.I.ItemDelBtn(this);
         Destroy(item);
     }
 
