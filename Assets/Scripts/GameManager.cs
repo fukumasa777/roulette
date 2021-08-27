@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using GoogleMobileAds.Api;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -69,6 +71,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        // Initialize the Mobile Ads SDK.
+        MobileAds.Initialize((initStatus) =>
+        {
+            // SDK initialization is complete
+        });
+
         if (isSound == 1)
         {
             SoundOffFlog.SetActive(false);

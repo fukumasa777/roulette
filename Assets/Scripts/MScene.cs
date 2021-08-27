@@ -25,10 +25,11 @@ public class MScene : MonoBehaviour
 
     public void OnClickShowSceneButton()
     {
+        rewardedAdGameObject.LoadAd();
         // Display an interstitial ad
         //interstitialAd.ShowIfLoaded();
         rewardedAdGameObject.ShowIfLoaded();
-
+        Debug.Log("広告開始");
     }
 
     /*
