@@ -7,6 +7,8 @@ public class TitleBtn : MonoBehaviour
 {
     string myText;
     public int idx;
+    [SerializeField] GameObject ikasamaFlag = default;
+
     private void Start()
     {
         Text t = transform.GetChild(0).gameObject.GetComponent<Text>();
@@ -25,14 +27,12 @@ public class TitleBtn : MonoBehaviour
             Debug.Log("イカサマ準備OK");
             GameManager.I.SetIkasama(myText,idx);
             GameManager.I.isIkasama = true;
+            GameManager.I.IkasamaFlagOn();
         }
         else
         {
             Debug.Log("スタミナが足りません");
             return;
         }
-        
     }
-
-    
 }

@@ -13,7 +13,6 @@ public class MScene : MonoBehaviour
 
         rewardedAdGameObject = MobileAds.Instance.GetAd<RewardedAdGameObject>("TestRewarded Ad");
 
-        interstitialAd = MobileAds.Instance.GetAd<InterstitialAdGameObject>("Interstitial Ad");
 
         MobileAds.Initialize((initStatus) =>
         {
@@ -39,7 +38,6 @@ public class MScene : MonoBehaviour
             return;
         }
         // Display an interstitial ad
-        //interstitialAd.ShowIfLoaded();
         
     }
 

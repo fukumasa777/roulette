@@ -24,9 +24,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject staminaIconPrefab = default;
     [SerializeField] Transform staminaIconPanel = default;
     [SerializeField] GameObject SettingBG = default;
-    [SerializeField] GameObject SoundOffFlog = default;
-    [SerializeField] GameObject SoundOnFlog = default;
-    
+    [SerializeField] GameObject SoundOffFlag = default;
+    [SerializeField] GameObject SoundOnFlag = default;
+    [SerializeField] GameObject ikasamaFlag = default;
+
+
 
     /*List達*/
     List<Item> itemList = new List<Item>();
@@ -80,15 +82,17 @@ public class GameManager : MonoBehaviour
 
         if (isSound == 1)
         {
-            SoundOffFlog.SetActive(false);
-            SoundOnFlog.SetActive(true);
+            SoundOffFlag.SetActive(false);
+            SoundOnFlag.SetActive(true);
         }
         else
         {
-            SoundOffFlog.SetActive(true);
-            SoundOnFlog.SetActive(false);
+            SoundOffFlag.SetActive(true);
+            SoundOnFlag.SetActive(false);
         }
-
+        
+        ikasamaFlag.SetActive(false);
+        setBG.SetActive(false);
         SettingBG.SetActive(false);
         colorPanel.SetActive(false);
         setBG.SetActive(false);
@@ -108,13 +112,13 @@ public class GameManager : MonoBehaviour
         //サウンドフラグセーブ再現
         if(isSound == 0)
         {
-            SoundOffFlog.SetActive(true);
-            SoundOnFlog.SetActive(false);
+            SoundOffFlag.SetActive(true);
+            SoundOnFlag.SetActive(false);
         }
         else
         {
-            SoundOffFlog.SetActive(false);
-            SoundOnFlog.SetActive(true);
+            SoundOffFlag.SetActive(false);
+            SoundOnFlag.SetActive(true);
         }
     }
 
@@ -138,12 +142,14 @@ public class GameManager : MonoBehaviour
             }
             if (rotationTime <= 0 && gensokuSpeed < rotSpeed )  //急に止まると不自然な為２段階減速
             {
-                rotSpeed *= gennsoku2;//減速
+                if (!isIkasama)
+                {
+                    rotSpeed *= gennsoku2;//減速
+                }
                 if (isIkasama)
                 {
-                    if (ikasamaGensokuSpeed < rotSpeed)　//イカサマ時遅くなり過ぎないよう調整
+                    if (rotSpeed < ikasamaGensokuSpeed)　//イカサマ時遅くなり過ぎないよう調整
                     {
-                        Debug.Log("確認2");
                         rotSpeed *= gennsoku2;//減速
                     }
                 }
@@ -209,6 +215,7 @@ public class GameManager : MonoBehaviour
         rotSpeed = 0;
         isBGM = false;
         isRouletteStart = false;
+        ikasamaFlag.SetActive(false);
         float resutAngle = Roulette.transform.localEulerAngles.z;
         foreach(var (item, idx) in itemList.Select((item, idx)=> (item, idx)))
         {
@@ -421,14 +428,20 @@ public class GameManager : MonoBehaviour
     public void SoundOnBtn()
     {
         isSound = 1;
-        SoundOffFlog.SetActive(false);
-        SoundOnFlog.SetActive(true);
+        SoundOffFlag.SetActive(false);
+        SoundOnFlag.SetActive(true);
     }
     public void SoundOffBtn()
     {
         isSound = 0;
-        SoundOffFlog.SetActive(true);
-        SoundOnFlog.SetActive(false);
+        SoundOffFlag.SetActive(true);
+        SoundOnFlag.SetActive(false);
+    }
+
+    //TitleBtnで呼び出すため
+    public void IkasamaFlagOn()
+    {
+        ikasamaFlag.SetActive(true);
     }
 
 }
