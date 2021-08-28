@@ -1594,6 +1594,7 @@ MonoBehaviour:
   gennsoku1: 0.996
   gennsoku2: 0.999
   gensokuSpeed: -0.5
+  ikasamaGensokuSpeed: -0.2
   stopSpeed: -0.25
   ikasmaStopSpeed: -0.4
   isBGM: 0

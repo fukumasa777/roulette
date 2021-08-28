@@ -20,16 +20,27 @@ public class MScene : MonoBehaviour
             Debug.Log("Initialized MobileAds");
         });
         //interstitialAd.LoadAd();
-        rewardedAdGameObject.LoadAd();
     }
 
     public void OnClickShowSceneButton()
     {
-        rewardedAdGameObject.LoadAd();
+        if (GameManager.I.isRouletteStart)
+        {
+            return;
+        }
+        if (GameManager.I.stamina < 5)
+        {
+            rewardedAdGameObject.LoadAd();
+            rewardedAdGameObject.ShowIfLoaded();
+            Debug.Log("広告開始");
+        }
+        else
+        {
+            return;
+        }
         // Display an interstitial ad
         //interstitialAd.ShowIfLoaded();
-        rewardedAdGameObject.ShowIfLoaded();
-        Debug.Log("広告開始");
+        
     }
 
     /*

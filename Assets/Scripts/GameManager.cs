@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     public float gennsoku1 = 0.996f;
     public float gennsoku2 = 0.999f;
     public float gensokuSpeed = -0.5f;
+    public float ikasamaGensokuSpeed = -0.36f;
     public float stopSpeed = -0.25f;
     public float ikasmaStopSpeed = -0.4f;
 
@@ -138,8 +139,15 @@ public class GameManager : MonoBehaviour
             if (rotationTime <= 0 && gensokuSpeed < rotSpeed )  //急に止まると不自然な為２段階減速
             {
                 rotSpeed *= gennsoku2;//減速
+                if (isIkasama)
+                {
+                    if (ikasamaGensokuSpeed < rotSpeed)　//イカサマ時遅くなり過ぎないよう調整
+                    {
+                        Debug.Log("確認2");
+                        rotSpeed *= gennsoku2;//減速
+                    }
+                }
             }
-
         }
         if (isIkasama && isRouletteStart)
         {
@@ -170,6 +178,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //イカサマ角度取得
     public void SetIkasama(string ikasamaText,int ikasamaIdx)
     {
         ikasamas[0] = circles[ikasamaIdx].startAngle;
@@ -383,19 +392,8 @@ public class GameManager : MonoBehaviour
     //スタミナプラス処理
     public void StaminaUpBtn()
     {
-        if (isRouletteStart)
-        {
-            return;
-        }
-        if (stamina < 5)
-        {
-            stamina += 1;
-            GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
-        }
-        else
-        {
-            return;
-        }
+        stamina += 1;
+        GameObject gameObject = Instantiate(staminaIconPrefab, staminaIconPanel, false);
     }
 
     //セーブ
