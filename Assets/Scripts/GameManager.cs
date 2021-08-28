@@ -272,7 +272,7 @@ public class GameManager : MonoBehaviour
     public void SetBtn()
     {
         Roulette.transform.localEulerAngles = new Vector3(0, 0, 0);
-
+        circles.Clear();
         if (itemList.Count <= 0)
         {
             setBG.SetActive(false);
