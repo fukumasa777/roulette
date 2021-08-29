@@ -47,12 +47,12 @@ public class GameManager : MonoBehaviour
     public int stamina;
 
     //挙動修正の為
-    public float gennsoku1 = 0.996f;
-    public float gennsoku2 = 0.999f;
-    public float gensokuSpeed = -0.5f;
-    public float ikasamaGensokuSpeed = -0.36f;
-    public float stopSpeed = -0.25f;
-    public float ikasmaStopSpeed = -0.4f;
+    private float gennsoku1 = 0.996f;
+    private float gennsoku2 = 0.999f;
+    private float gensokuSpeed = -0.5f;
+    private float ikasamaGensokuSpeed = -0.36f;
+    private float stopSpeed = -0.25f;
+    private float ikasmaStopSpeed = -0.4f;
 
 
 

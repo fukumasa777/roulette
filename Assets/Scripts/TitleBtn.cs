@@ -7,7 +7,6 @@ public class TitleBtn : MonoBehaviour
 {
     string myText;
     public int idx;
-    [SerializeField] GameObject ikasamaFlag = default;
 
     private void Start()
     {
